@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import smtplib
 from email.mime.text import MIMEText
 
-# GitHub Secrets에서 보안 정보 가져오기
+# GitHub Secrets 정보추출
 SERVICE_KEY = os.environ['DATA_API_KEY']
 EMAIL_USER = os.environ['EMAIL_USER']
 EMAIL_PW = os.environ['EMAIL_PW']
@@ -12,7 +12,7 @@ EMAIL_PW = os.environ['EMAIL_PW']
 def get_bids():
     url = "http://apis.data.go.kr/1230000/BidPublicInfoService05/getBidPblancListInfoCnstwk01"
     
-    # 현재 시간과 1시간 전 시간 계산 (중복 방지 핵심)
+    # 전송시 시간과 １시간전 시간 대조
     now = datetime.now() + timedelta(hours=9) # GitHub 서버는 UTC 기준이라 한국시간(+9)으로 보정
     one_hour_ago = now - timedelta(hours=1, minutes=5) # 5분 여유를 두어 누락 방지
     
