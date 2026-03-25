@@ -52,7 +52,7 @@ def get_bids():
         area = item.get('rgstRtlimitCn', '') # 지역제한내용
         
         # 3. 필터링 조건 적용 (2억 미만, 수의 제외, 세종/무제한)
-        if price < 200000000 and "수의" not in title:
+        if price < 9000000000 and "수의" not in title:
             # 지역 조건: '세종' 포함 혹은 '제한없음' 혹은 '전국'
             if any(region in area for region in ["세종", "제한없음", "전국"]) or not area:
                 link = item.get('bidNtceDtlUrl', '#')
