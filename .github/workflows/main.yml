@@ -1,0 +1,25 @@
+name: Hourly Bid Check
+on:
+  schedule:
+    # 한국시간 평일 08:30 ~ 17:30 사이 매 정시 실행 (UTC 기준 보정)
+    - cron: '30 23 * * 0-4'
+    - cron: '0 0-8 * * 1-5'
+  workflow_dispatch: # 수동으로 즉시 실행해볼 수 있는 버튼을 만듭니다.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run Script
+        env:
+          DATA_API_KEY: ${{ secrets.DATA_API_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PW: ${{ secrets.EMAIL_PW }}
+        run: python main.py
